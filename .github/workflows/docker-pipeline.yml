@@ -35,5 +35,5 @@ jobs:
           --user="${{ secrets.AWS_SES_SMTP_USERNAME }}" \
           --password="${{ secrets.AWS_SES_SMTP_PASSWORD }}" \
           --from="${{ secrets.GMAIL_USERNAME }}" \
-          --to="bharghav588@gmail.com" \
+          --to="bharghavvarma158@gmail.com" \
           --subject="Build Successful"
