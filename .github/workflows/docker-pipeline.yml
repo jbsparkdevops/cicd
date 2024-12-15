@@ -31,4 +31,4 @@ jobs:
           from: ${{ secrets.GMAIL_USERNAME }}  # Sender email (same as the username)
           to: "bharghav588@gmail.com"  # Recipient's email
           subject: "Build Successful"
-          body: "The build for your repository has completed successfully!"
+          body: "The build for your repository has completed successfully!!!"
