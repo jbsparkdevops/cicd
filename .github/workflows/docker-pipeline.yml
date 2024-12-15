@@ -21,14 +21,19 @@ jobs:
         docker build -t ${{ secrets.DOCKER_USERNAME }}/my-app:latest .
         docker push ${{ secrets.DOCKER_USERNAME }}/my-app:latest
 
+    - name: Install msmtp
+      run: |
+        sudo apt-get update
+        sudo apt-get install msmtp msmtp-mta
+
     - name: Send email notification
       if: success()  # Only runs if the build is successful
       run: |
-        echo "The build for your repository has completed successfully!" | mail -s "Build Successful" \
-          -S smtp="email-smtp.us-east-1.amazonaws.com:587" \
-          -S smtp-auth=login \
-          -S smtp-auth-user="${{ secrets.SES_SMTP_USERNAME }}" \
-          -S smtp-auth-password="${{ secrets.SES_SMTP_PASSWORD }}" \
-          -S smtp-use-starttls \
-          -S from="${{ secrets.SES_FROM_EMAIL }}" \
-          ${{ secrets.SES_TO_EMAIL }}
+        echo "The build for your repository has completed successfully!" | msmtp --host=email-smtp.us-east-1.amazonaws.com \
+          --port=587 \
+          --auth=on \
+          --user="${{ secrets.AWS_SES_SMTP_USERNAME }}" \
+          --password="${{ secrets.AWS_SES_SMTP_PASSWORD }}" \
+          --from="${{ secrets.GMAIL_USERNAME }}" \
+          --to="bharghav588@gmail.com" \
+          --subject="Build Successful"
