@@ -20,3 +20,15 @@ jobs:
       run: |
         docker build -t ${{ secrets.DOCKER_USERNAME }}/my-app:latest .
         docker push ${{ secrets.DOCKER_USERNAME }}/my-app:latest
+    - name: Send email notification
+      if: success()  # Only runs if the build is successful
+      uses: dawidd6/action-send-mail@v3
+      with:
+          smtp-server: smtp.mailgun.org
+          smtp-port: 587
+          smtp-username: ${{ secrets.MAILGUN_SMTP_USERNAME }}
+          smtp-password: ${{ secrets.MAILGUN_SMTP_PASSWORD }}
+          from: "bharghavvarma158@gmail.com"
+          to: "bharghav588@gmail.com"
+          subject: "Build Successful"
+          body: "The build for your repository has completed successfully!"
