@@ -24,11 +24,11 @@ jobs:
       if: success()  # Only runs if the build is successful
       uses: dawidd6/action-send-mail@v3
       with:
-          smtp-server: smtp.gamil.com
-          smtp-port: 587
-          smtp-username: ${{ secrets.MAILGUN_SMTP_USERNAME }}
-          smtp-password: ${{ secrets.MAILGUN_SMTP_PASSWORD }}
-          from: "bharghavvarma158@gmail.com"
-          to: "bharghav588@gmail.com"
+          server_address: smtp.gmail.com  # Correct SMTP server address for Gmail
+          server_port: 587  # Port for Gmail SMTP server
+          username: ${{ secrets.GMAIL_USERNAME }}  # Gmail username (your Gmail email)
+          password: ${{ secrets.GMAIL_APP_PASSWORD }}  # Gmail app password (not regular password)
+          from: ${{ secrets.GMAIL_USERNAME }}  # Sender email (same as the username)
+          to: "bharghav588@gmail.com"  # Recipient's email
           subject: "Build Successful"
           body: "The build for your repository has completed successfully!"
